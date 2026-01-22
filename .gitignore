@@ -416,3 +416,31 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# JetBrains Rider / IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+*.sln.iml
+
+# Rider cache / workspace
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/shelf/
+.idea/**/contentModel.xml
+
+# Rider / ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Build outputs (.NET)
+bin/
+obj/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
