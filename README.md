@@ -117,24 +117,26 @@ Banco de dados utilizado pelo **Keycloak** para persistência de usuários, cred
 
 ## Infraestrutura como Código (IaC)
 
-A pasta `iac` contém os arquivos docker-compose responsáveis por orquestrar os serviços do projeto:
 
-* [analytics-docker-compose.yml](iac/analytics-docker-compose.yml)
-* [ingress-docker-compose.yml](iac/ingress-docker-compose.yml)
-* [keycloak-docker-compose.yml](iac/keycloak-docker-compose.yml)
-* [properties-docker-compose.yml](iac/properties-docker-compose.yml)
-* [sensors-docker-compose.yml](iac/sensors-docker-compose.yml)
-* [docker-compose.yml](iac/docker-compose.yml) (arquivo principal que referencia os demais)
+
+O projeto utiliza Docker Compose para orquestrar todos os serviços. O arquivo principal [`docker-compose.yml`](docker-compose.yml) está na raiz do projeto e inclui os arquivos de definição de cada serviço localizados na pasta [`iac`](iac/):
+
+- [`iac/analytics-docker-compose.yml`](iac/analytics-docker-compose.yml)
+- [`iac/ingress-docker-compose.yml`](iac/ingress-docker-compose.yml)
+- [`iac/keycloak-docker-compose.yml`](iac/keycloak-docker-compose.yml)
+- [`iac/properties-docker-compose.yml`](iac/properties-docker-compose.yml)
+- [`iac/sensors-docker-compose.yml`](iac/sensors-docker-compose.yml)
+
 
 ### Como iniciar todos os serviços
 
-No diretório `iac`, execute:
+No terminal, acesse a raiz do projeto (onde está o arquivo `docker-compose.yml`) e execute:
 
 ```sh
 docker compose up -d
 ```
 
-Isso irá iniciar todos os serviços definidos nos arquivos de compose.
+Isso irá iniciar todos os serviços definidos nos arquivos de compose incluídos.
 
 ### Como iniciar apenas serviços específicos
 
