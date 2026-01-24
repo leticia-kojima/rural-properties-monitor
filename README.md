@@ -7,12 +7,12 @@ Projeto Hackathon para Monitoramento de Propriedades Rurais
 
 A pasta `iac` contém os arquivos docker-compose responsáveis por orquestrar os serviços do projeto:
 
-- `analytics-docker-compose.yml`
-- `ingress-docker-compose.yml`
-- `keycloak-docker-compose.yml`
-- `properties-docker-compose.yml`
-- `sensors-docker-compose.yml`
-- `docker-compose.yml` (arquivo principal que referencia os demais)
+- [analytics-docker-compose.yml](iac/analytics-docker-compose.yml)
+- [ingress-docker-compose.yml](iac/ingress-docker-compose.yml)
+- [keycloak-docker-compose.yml](iac/keycloak-docker-compose.yml)
+- [properties-docker-compose.yml](iac/properties-docker-compose.yml)
+- [sensors-docker-compose.yml](iac/sensors-docker-compose.yml)
+- [docker-compose.yml](iac/docker-compose.yml) (arquivo principal que referencia os demais)
 
 ### Como iniciar todos os serviços
 
