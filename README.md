@@ -9,6 +9,7 @@
   - [Como iniciar todos os serviços](#como-iniciar-todos-os-serviços)
   - [Como iniciar apenas serviços específicos](#como-iniciar-apenas-serviços-específicos)
   - [Como parar e remover os containers](#como-parar-e-remover-os-containers)
+- [Autores](#autores)
 
 ## Visão Geral
 
@@ -127,8 +128,6 @@ Banco de dados utilizado pelo **Keycloak** para persistência de usuários, cred
 
 ## Infraestrutura como Código (IaC)
 
-
-
 O projeto utiliza Docker Compose para orquestrar todos os serviços. O arquivo principal [`docker-compose.yml`](docker-compose.yml) está na raiz do projeto e inclui os arquivos de definição de cada serviço localizados na pasta [`iac`](iac/):
 
 - [`iac/analytics-docker-compose.yml`](iac/analytics-docker-compose.yml)
@@ -179,3 +178,11 @@ docker compose down
 ```
 
 Você também pode usar essas opções com arquivos de compose personalizados usando a opção `-f`.
+
+## Autores
+
+- [Paulo](https://github.com/paulobusch)
+- [Geovanne](https://github.com/gehcosta)
+- [Letícia](https://github.com/leticia-kojima)
+- [Matheus](https://github.com/M4theusVieir4)
+- [Marcelo](https://github.com/marceloalvees)
