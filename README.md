@@ -1,5 +1,15 @@
 # Projeto Hackathon para Monitoramento de Propriedades Rurais
 
+## Sumário
+
+- [Visão Geral](#visão-geral)
+- [Componentes](#componentes)
+- [Fluxo Geral de Dados](#fluxo-geral-de-dados)
+- [Infraestrutura como Código (IaC)](#infraestrutura-como-código-iac)
+  - [Como iniciar todos os serviços](#como-iniciar-todos-os-serviços)
+  - [Como iniciar apenas serviços específicos](#como-iniciar-apenas-serviços-específicos)
+  - [Como parar e remover os containers](#como-parar-e-remover-os-containers)
+
 ## Visão Geral
 
 O sistema é composto por uma arquitetura baseada em microsserviços, orientada a eventos e preparada para ingestão e análise de dados de sensores em propriedades rurais. O diagrama abaixo representa os principais componentes e seus fluxos de comunicação.
