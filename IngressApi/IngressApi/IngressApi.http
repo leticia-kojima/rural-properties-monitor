@@ -1,0 +1,6 @@
+@IngressApi_HostAddress = http://localhost:5283
+
+GET {{IngressApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
