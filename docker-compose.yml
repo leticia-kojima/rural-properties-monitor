@@ -1,0 +1,8 @@
+name: rural-properties-monitor
+
+include:
+  - ./iac/keycloak-docker-compose.yml
+  - ./iac/analytics-docker-compose.yml
+  - ./iac/ingress-docker-compose.yml
+  - ./iac/properties-docker-compose.yml
+  - ./iac/sensors-docker-compose.yml
