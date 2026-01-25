@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36511.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		iac\analytics-docker-compose.yml = iac\analytics-docker-compose.yml
+		docker-compose.yml = docker-compose.yml
+		iac\ingress-docker-compose.yml = iac\ingress-docker-compose.yml
+		iac\keycloak-docker-compose.yml = iac\keycloak-docker-compose.yml
+		iac\properties-docker-compose.yml = iac\properties-docker-compose.yml
+		README.md = README.md
+		iac\sensors-docker-compose.yml = iac\sensors-docker-compose.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0897ECDC-0D97-4E4B-A0C4-64105AF537E9}
+	EndGlobalSection
+EndGlobal
