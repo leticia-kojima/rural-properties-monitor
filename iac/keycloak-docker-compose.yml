@@ -9,12 +9,15 @@ services:
       KC_DB_PASSWORD: keycloakpass
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: adminpass
+      KC_HEALTH_ENABLED: "true"
+      KC_METRICS_ENABLED: "true"
     ports:
       - "8080:8080"
     depends_on:
       - postgres
-    command: start-dev
+    command: start-dev --import-realm
     volumes:
+      - ./keycloak-realm.json:/opt/keycloak/data/import/realm.json:ro
       - keycloak_data:/opt/keycloak/data
     restart: unless-stopped
 
