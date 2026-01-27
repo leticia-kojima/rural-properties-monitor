@@ -4,29 +4,24 @@ services:
     container_name: keycloak
     environment:
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_DATABASE: keycloak
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloakpass
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: adminpass
-      KC_HOSTNAME_STRICT: "false"
-      KC_HOSTNAME_STRICT_HTTPS: "false"
-      KC_HTTP_ENABLED: "true"
     ports:
       - "8080:8080"
     depends_on:
       - postgres
-    command: start-dev --import-realm
+    command: start-dev
     volumes:
-      - ./keycloak-realm.json:/opt/keycloak/data/import/realm.json:ro
       - keycloak_data:/opt/keycloak/data
     restart: unless-stopped
 
   postgres:
     image: postgres:15
     container_name: keycloak_postgres
-    ports:
-      - "5433:5432"
     environment:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
