@@ -1,2 +1,13 @@
-# services:
-  # TODO: Configure container service
+services:
+  sensors:
+    build:
+      context: ../src/Sensors
+      dockerfile: Dockerfile
+    container_name: sensors
+    environment:
+      - SensorConfig__Kafka__Broker=kafka:9092
+      - SensorConfig__Kafka__Topic=sensor-data
+      - SensorConfig__PlotId=plot-001
+    depends_on:
+      - kafka
+    restart: unless-stopped

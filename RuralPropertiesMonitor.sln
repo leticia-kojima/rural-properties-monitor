@@ -1,23 +1,59 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36511.14
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		iac\analytics-docker-compose.yml = iac\analytics-docker-compose.yml
 		docker-compose.yml = docker-compose.yml
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{03ABB857-8B64-4A94-9AE7-B57884C5B9AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{ACD2274E-E7E2-42A8-B805-164E981AA9BA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sensors", "Sensors", "{B311763B-BAF3-4C69-A77D-D9C9B9FAB426}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analytics", "Analytics", "{6F3039D4-1348-42C5-973F-44422BBE8DD2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ingress", "Ingress", "{8F755CEE-65A2-4189-BF8E-663BAF41DC38}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Properties", "Properties", "{1DC60D51-53C6-4D4F-9FD0-A7F29D2C080F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sensors", "src\Sensors\Sensors.csproj", "{B4D53745-372C-2E02-4915-478381F4FF0B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iac", "iac", "{C1888368-8260-41E1-B087-C74446DA33F5}"
+	ProjectSection(SolutionItems) = preProject
+		iac\analytics-docker-compose.yml = iac\analytics-docker-compose.yml
 		iac\ingress-docker-compose.yml = iac\ingress-docker-compose.yml
 		iac\keycloak-docker-compose.yml = iac\keycloak-docker-compose.yml
 		iac\properties-docker-compose.yml = iac\properties-docker-compose.yml
-		README.md = README.md
 		iac\sensors-docker-compose.yml = iac\sensors-docker-compose.yml
 	EndProjectSection
 EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B4D53745-372C-2E02-4915-478381F4FF0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4D53745-372C-2E02-4915-478381F4FF0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4D53745-372C-2E02-4915-478381F4FF0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4D53745-372C-2E02-4915-478381F4FF0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B311763B-BAF3-4C69-A77D-D9C9B9FAB426} = {03ABB857-8B64-4A94-9AE7-B57884C5B9AB}
+		{6F3039D4-1348-42C5-973F-44422BBE8DD2} = {03ABB857-8B64-4A94-9AE7-B57884C5B9AB}
+		{8F755CEE-65A2-4189-BF8E-663BAF41DC38} = {03ABB857-8B64-4A94-9AE7-B57884C5B9AB}
+		{1DC60D51-53C6-4D4F-9FD0-A7F29D2C080F} = {03ABB857-8B64-4A94-9AE7-B57884C5B9AB}
+		{B4D53745-372C-2E02-4915-478381F4FF0B} = {B311763B-BAF3-4C69-A77D-D9C9B9FAB426}
+		{C1888368-8260-41E1-B087-C74446DA33F5} = {8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0897ECDC-0D97-4E4B-A0C4-64105AF537E9}
