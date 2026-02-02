@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace IngressApi.Controller;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class HealthController(IHostEnvironment env) : ControllerBase
 {
     [HttpGet("status")]
