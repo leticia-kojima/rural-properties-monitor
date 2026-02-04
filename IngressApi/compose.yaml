@@ -1,7 +1,0 @@
-﻿services:
-  ingressapi:
-    image: ingressapi
-    build:
-      context: .
-      dockerfile: IngressApi/Dockerfile
-

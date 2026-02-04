@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.2.11415.280 d18.0
+VisualStudioVersion = 18.2.11415.280
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iac", "iac", "{C1888368-826
 		iac\sensors-docker-compose.yml = iac\sensors-docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IngressApi", "src\Ingress\IngressApi.csproj", "{C4B437E4-C866-7EE5-B068-1A44F09D02F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{B4D53745-372C-2E02-4915-478381F4FF0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4D53745-372C-2E02-4915-478381F4FF0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4D53745-372C-2E02-4915-478381F4FF0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4B437E4-C866-7EE5-B068-1A44F09D02F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4B437E4-C866-7EE5-B068-1A44F09D02F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4B437E4-C866-7EE5-B068-1A44F09D02F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4B437E4-C866-7EE5-B068-1A44F09D02F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 		{1DC60D51-53C6-4D4F-9FD0-A7F29D2C080F} = {03ABB857-8B64-4A94-9AE7-B57884C5B9AB}
 		{B4D53745-372C-2E02-4915-478381F4FF0B} = {B311763B-BAF3-4C69-A77D-D9C9B9FAB426}
 		{C1888368-8260-41E1-B087-C74446DA33F5} = {8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}
+		{C4B437E4-C866-7EE5-B068-1A44F09D02F9} = {8F755CEE-65A2-4189-BF8E-663BAF41DC38}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0897ECDC-0D97-4E4B-A0C4-64105AF537E9}
