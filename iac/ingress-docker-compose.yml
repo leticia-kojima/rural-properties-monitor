@@ -9,6 +9,10 @@ services:
       - Kafka__Broker=kafka:9092
       - Kafka__Topic=sensor-data
       - Kafka__GroupId=ingress-group
+      - InfluxDbConfig__Url=http://influxdb:8086
+      - InfluxDbConfig__Token=adminpassword
+      - InfluxDbConfig__Org=myorg
+      - InfluxDbConfig__Bucket=mybucket
     depends_on:
       - kafka
       - sensors

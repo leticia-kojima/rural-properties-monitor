@@ -2,6 +2,7 @@ using Confluent.Kafka;
 using IngressApi.Models;
 using Sensors.Models;
 using System.Text.Json;
+using IngressApi.Repositories;
 
 namespace IngressApi.Services
 {
@@ -9,11 +10,16 @@ namespace IngressApi.Services
     {
         private readonly KafkaConfig _kafkaConfig;
         private readonly ILogger<KafkaConsumerService> _logger;
+        private readonly ISensorDataRepository _repository;
 
-        public KafkaConsumerService(KafkaConfig kafkaConfig, ILogger<KafkaConsumerService> logger)
+        public KafkaConsumerService(
+            KafkaConfig kafkaConfig,
+            ILogger<KafkaConsumerService> logger,
+            ISensorDataRepository repository)
         {
             _kafkaConfig = kafkaConfig;
             _logger = logger;
+            _repository = repository;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -36,7 +42,12 @@ namespace IngressApi.Services
                     var data = JsonSerializer.Deserialize<SensorDataPayload>(result.Message.Value);
                     _logger.LogInformation("Received message: {Message}", result.Message.Value);
                     _logger.LogInformation("Deserialized data: {@Data}", data);
-                    // TODO: Process data (e.g., save to DB, log, etc.)
+
+                    if (data != null)
+                    {
+                        await _repository.SaveAsync(data, stoppingToken);
+                        _logger.LogInformation("Data saved to InfluxDB.");
+                    }
                 }
                 catch (ConsumeException ex)
                 {
