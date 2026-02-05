@@ -1,5 +1,19 @@
 services:
-  # TODO: Configure container service
+  ingress:
+    build:
+      context: ../src/Ingress
+      dockerfile: Dockerfile
+    container_name: ingress
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Kafka__Broker=kafka:9092
+      - Kafka__Topic=sensor-data
+      - Kafka__GroupId=ingress-group
+    depends_on:
+      - kafka
+      - sensors
+    ports:
+      - "5001:80"
 
   influxdb:
     image: influxdb:2.7

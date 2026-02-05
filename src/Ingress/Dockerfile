@@ -1,21 +1,19 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
 USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
-EXPOSE 8081
 
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["IngressApi/IngressApi.csproj", "IngressApi/"]
-RUN dotnet restore "IngressApi/IngressApi.csproj"
+COPY IngressApi.csproj .
+RUN dotnet restore IngressApi.csproj
 COPY . .
-WORKDIR "/src/IngressApi"
-RUN dotnet build "./IngressApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build IngressApi.csproj -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./IngressApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish IngressApi.csproj -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
