@@ -15,7 +15,7 @@ services:
       - postgres
     command: start-dev --import-realm
     volumes:
-      - ./keycloak-realm.json:/opt/keycloak/data/import/realm.json:ro
+      - ../keycloak-realm.json:/opt/keycloak/data/import/realm.json:ro
       - keycloak_data:/opt/keycloak/data
     restart: unless-stopped
 
