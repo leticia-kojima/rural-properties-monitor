@@ -18,6 +18,9 @@ builder.Services.AddSingleton(resolver =>
 // Register repository
 builder.Services.AddSingleton<IngressApi.Repositories.ISensorDataRepository, IngressApi.Repositories.InfluxSensorDataRepository>();
 
+// Register services
+builder.Services.AddScoped<IngressApi.Services.ISensorDataService, IngressApi.Services.SensorDataService>();
+
 // Register Kafka consumer background service
 builder.Services.AddHostedService<IngressApi.Services.KafkaConsumerService>();
 

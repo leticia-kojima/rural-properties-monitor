@@ -1,10 +1,15 @@
 using Sensors.Models;
-using System.Threading.Tasks;
 
 namespace IngressApi.Repositories
 {
     public interface ISensorDataRepository
     {
         Task SaveAsync(SensorDataPayload data, CancellationToken cancellationToken = default);
+        
+        Task<List<SensorDataPayload>> GetByPlotIdsAsync(
+            List<string> plotIds, 
+            DateTime startDate, 
+            DateTime endDate, 
+            CancellationToken cancellationToken = default);
     }
 }

@@ -30,5 +30,39 @@ namespace IngressApi.Repositories
             var writeApi = _client.GetWriteApiAsync();
             await writeApi.WritePointAsync(point, _config.Bucket, _config.Org, cancellationToken);
         }
+
+        public async Task<List<SensorDataPayload>> GetByPlotIdsAsync(
+            List<string> plotIds, 
+            DateTime startDate, 
+            DateTime endDate, 
+            CancellationToken cancellationToken = default)
+        {
+            var results = new List<SensorDataPayload>();
+            var queryApi = _client.GetQueryApi();
+
+            var plotIdFilter = string.Join(" or ", plotIds.Select(id => $"r.plotId == \"{id}\""));
+
+            // TODO: Inserir a query para consulta dos dados agregados por hora e período
+            var fluxQuery = "";
+
+            var tables = await queryApi.QueryAsync(fluxQuery, _config.Org, cancellationToken);
+
+            foreach (var table in tables)
+            {
+                foreach (var record in table.Records)
+                {
+                    results.Add(new SensorDataPayload
+                    {
+                        PlotId = record.Values["plotId"]?.ToString() ?? string.Empty,
+                        SoilMoisture = Convert.ToDouble(record.Values["soilMoisture"] ?? 0),
+                        Temperature = Convert.ToDouble(record.Values["temperature"] ?? 0),
+                        Precipitation = Convert.ToDouble(record.Values["precipitation"] ?? 0),
+                        Timestamp = record.GetTimeInDateTime() ?? DateTime.UtcNow
+                    });
+                }
+            }
+
+            return results;
+        }
     }
 }
