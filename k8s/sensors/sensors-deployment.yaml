@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sensors
+  labels:
+    app: sensors
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sensors
+  template:
+    metadata:
+      labels:
+        app: sensors
+    spec:
+      containers:
+        - name: sensors
+          image: sensors:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          env:
+            - name: Kafka__Broker
+              value: kafka:9092
+            - name: Kafka__Topic
+              value: sensor-data

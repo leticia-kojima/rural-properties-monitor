@@ -30,10 +30,22 @@ spec:
             - name: Kafka__GroupId
               value: ingress-group
             - name: InfluxDbConfig__Url
-              value: http://influxdb:8086
-            - name: InfluxDbConfig__Token
-              value: influxdb-token
+              valueFrom:
+                configMapKeyRef:
+                  name: influxdb-config
+                  key: INFLUXDB_URL
             - name: InfluxDbConfig__Org
-              value: myorg
+              valueFrom:
+                configMapKeyRef:
+                  name: influxdb-config
+                  key: DOCKER_INFLUXDB_INIT_ORG
             - name: InfluxDbConfig__Bucket
-              value: ingress
+              valueFrom:
+                configMapKeyRef:
+                  name: influxdb-config
+                  key: DOCKER_INFLUXDB_INIT_BUCKET
+            - name: InfluxDbConfig__Token
+              valueFrom:
+                secretKeyRef:
+                  name: influxdb-secret
+                  key: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
