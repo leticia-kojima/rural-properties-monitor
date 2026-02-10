@@ -9,6 +9,7 @@
   - [Como iniciar todos os serviços](#como-iniciar-todos-os-serviços)
   - [Como iniciar apenas serviços específicos](#como-iniciar-apenas-serviços-específicos)
   - [Como parar e remover os containers](#como-parar-e-remover-os-containers)
+- [Kubernetes & Minikube](#kubernetes--minikube)
 - [Autores](#autores)
 
 ## Visão Geral
@@ -112,7 +113,7 @@ Benefícios:
 
 ### 📟 Sensors
 
-Representam dispositivos de campo responsáveis pela coleta de dados (ex: temperatura, umidade, localização, etc.).
+Representam dispositivos de campo responsáveis pela coleta de dados (ex: temperatura, umaidade, localização, etc.).
 
 Esses dados são enviados para o Kafka, simulando um cenário real de IoT.
 
@@ -155,7 +156,6 @@ O projeto utiliza Docker Compose para orquestrar todos os serviços. O arquivo p
 - [`iac/properties-docker-compose.yml`](iac/properties-docker-compose.yml)
 - [`iac/sensors-docker-compose.yml`](iac/sensors-docker-compose.yml)
 
-
 ### Como iniciar todos os serviços
 
 No terminal, acesse a raiz do projeto (onde está o arquivo `docker-compose.yml`) e execute:
@@ -197,6 +197,87 @@ docker compose down
 ```
 
 Você também pode usar essas opções com arquivos de compose personalizados usando a opção `-f`.
+
+## Kubernetes & Minikube
+
+Esta seção orienta como executar e orquestrar todos os microsserviços do projeto em um cluster Kubernetes local utilizando o Minikube. O uso do Kubernetes permite simular um ambiente de produção real, facilitando testes de escalabilidade, resiliência, deploy contínuo e integração entre os serviços. Com Minikube, você pode experimentar práticas modernas de DevOps, validar a infraestrutura como código e garantir que sua aplicação está pronta para ambientes cloud-native.
+
+### O que é Minikube?
+Minikube é uma ferramenta que executa clusters Kubernetes localmente, ideal para desenvolvimento e testes.
+
+### Por que usar Kubernetes neste projeto?
+- Orquestração e automação de deploys, escalonamento e gerenciamento dos serviços.
+- Simulação de ambiente produtivo, com pods, serviços, volumes persistentes e variáveis de ambiente.
+- Facilidade para testar cenários de falha, escalabilidade e atualização contínua.
+- Separação clara dos recursos de infraestrutura (Kafka, InfluxDB, Zookeeper, etc) e dos microsserviços da aplicação.
+
+### Organização dos Manifests
+
+Os manifests do Kubernetes estão organizados em subpastas dentro de `k8s/`:
+
+- `k8s/influxdb/` - Deployment, Service, PVCs do InfluxDB
+- `k8s/kafka/` - Deployment & Service do Kafka
+- `k8s/zookeeper/` - Deployment & Service do Zookeeper
+- `k8s/ingress/` - Deployment & Service da API Ingress
+
+Cada subpasta contém arquivos YAML separados para Deployment, Service e, quando necessário, PersistentVolumeClaim.
+
+### Como rodar no Minikube
+
+1. **Inicie o Minikube:**
+   ```sh
+   minikube start
+   ```
+2. **Construa as imagens Docker dentro do Minikube:**
+   - **Opção 1: Build de todas as imagens com Docker Compose:**
+     ```sh
+     eval $(minikube docker-env)
+     docker compose build
+     ```
+   - **Opção 2: Build manual de cada imagem:**
+     ```sh
+     eval $(minikube docker-env)
+     docker build -t ingress:latest ./src/Ingress
+     # Construa outras imagens conforme necessário
+     ```
+3. **Aplique os manifests do Kubernetes:**
+   - **Opção 1: Aplicar todos os manifests de uma vez:**
+     ```sh
+     kubectl apply -f k8s/
+     ```
+   - **Opção 2: Aplicar manualmente cada manifest:**
+     ```sh
+     kubectl apply -f k8s/zookeeper/zookeeper-deployment.yaml
+     kubectl apply -f k8s/zookeeper/zookeeper-service.yaml
+     kubectl apply -f k8s/kafka/kafka-deployment.yaml
+     kubectl apply -f k8s/kafka/kafka-service.yaml
+     kubectl apply -f k8s/influxdb/influxdb-pvc.yaml
+     kubectl apply -f k8s/influxdb/influxdb-deployment.yaml
+     kubectl apply -f k8s/influxdb/influxdb-service.yaml
+     kubectl apply -f k8s/ingress/ingress-api-deployment.yaml
+     kubectl apply -f k8s/ingress/ingress-api-service.yaml
+     ```
+4. **Verifique os pods e serviços:**
+   ```sh
+   kubectl get pods
+   kubectl get svc
+   ```
+5. **Acesse a API ingress:**
+   ```sh
+   minikube service ingress-api
+   ```
+
+### Dicas e Boas Práticas
+
+- Use `kubectl delete -f <arquivo.yaml>` para remover recursos.
+- Use `kubectl logs <nome-do-pod>` para debugar problemas em pods.
+- Para acessar o InfluxDB, crie um port-forward:
+  ```sh
+  kubectl port-forward svc/influxdb 8086:8086
+  ```
+- Para testar escalabilidade, altere o campo `replicas` nos arquivos de Deployment.
+- As variáveis de ambiente definidas nos Deployments sobrescrevem as configurações do `appsettings.json`.
+- Certifique-se de que o valor de `InfluxDbConfig__Url` seja `http://influxdb:8086` no ambiente Kubernetes.
 
 ## Autores
 

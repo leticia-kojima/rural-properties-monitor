@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb
+  labels:
+    app: influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      containers:
+        - name: influxdb
+          image: influxdb:2.7
+          ports:
+            - containerPort: 8086
+          env:
+            - name: DOCKER_INFLUXDB_INIT_MODE
+              value: setup
+            - name: DOCKER_INFLUXDB_INIT_USERNAME
+              value: admin
+            - name: DOCKER_INFLUXDB_INIT_PASSWORD
+              value: adminpassword
+            - name: DOCKER_INFLUXDB_INIT_ORG
+              value: myorg
+            - name: DOCKER_INFLUXDB_INIT_BUCKET
+              value: ingress
+            - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+              value: influxdb-token
+          volumeMounts:
+            - name: influxdb-data
+              mountPath: /var/lib/influxdb2
+            - name: influxdb-config
+              mountPath: /etc/influxdb2
+      volumes:
+        - name: influxdb-data
+          persistentVolumeClaim:
+            claimName: influxdb-data-pvc
+        - name: influxdb-config
+          persistentVolumeClaim:
+            claimName: influxdb-config-pvc
