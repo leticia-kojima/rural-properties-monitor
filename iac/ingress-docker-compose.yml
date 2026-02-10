@@ -10,7 +10,7 @@ services:
       - Kafka__Topic=sensor-data
       - Kafka__GroupId=ingress-group
       - InfluxDbConfig__Url=http://influxdb:8086
-      - InfluxDbConfig__Token=adminpassword
+      - InfluxDbConfig__Token=EpP-Q9CYkrKeVy5ujOBkD2Wx-zfuKT_lDhv7gqpl_Huf0rGvlPgh1mPgzhbJ3cYxuFAYyIcgGGyjIL9zogkjww==
       - InfluxDbConfig__Org=myorg
       - InfluxDbConfig__Bucket=mybucket
     depends_on:

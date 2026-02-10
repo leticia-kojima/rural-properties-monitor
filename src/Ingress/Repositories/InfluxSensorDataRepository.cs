@@ -42,8 +42,13 @@ namespace IngressApi.Repositories
 
             var plotIdFilter = string.Join(" or ", plotIds.Select(id => $"r.plotId == \"{id}\""));
 
-            // TODO: Inserir a query para consulta dos dados agregados por hora e período
-            var fluxQuery = "";
+            var fluxQuery = $@"
+                from(bucket: ""{_config.Bucket}"")
+                |> range(start: ""{startDate:yyyy-MM-ddTHH:mm:ssZ}"", stop: ""{endDate:yyyy-MM-ddTHH:mm:ssZ}"")
+                |> filter(fn: (r) => r._measurement == ""sensor_data"")
+                |> filter(fn: (r) => {plotIdFilter})
+                |> pivot(rowKey: [""_time"", ""plotId""], columnKey: [""_field""], valueColumn: ""_value"")
+            ";
 
             var tables = await queryApi.QueryAsync(fluxQuery, _config.Org, cancellationToken);
 

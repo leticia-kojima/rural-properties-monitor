@@ -11,7 +11,7 @@ builder.Services.AddSingleton(resolver =>
 
 // Bind InfluxDbConfig from configuration and register as singleton
 builder.Services.Configure<IngressApi.Models.InfluxDbConfig>(
-    builder.Configuration.GetSection("InfluxDb"));
+    builder.Configuration.GetSection("InfluxDbConfig"));
 builder.Services.AddSingleton(resolver =>
     resolver.GetRequiredService<Microsoft.Extensions.Options.IOptions<IngressApi.Models.InfluxDbConfig>>().Value);
 

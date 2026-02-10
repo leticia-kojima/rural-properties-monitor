@@ -79,6 +79,25 @@ Funções principais:
 
 ---
 
+### 🟦 InfluxDB
+
+Banco de dados de séries temporais utilizado para armazenar os dados dos sensores processados pela **Ingress API**.
+
+Funções principais:
+
+* Armazenamento otimizado para dados de séries temporais
+* Consultas eficientes baseadas em tempo
+* Retenção automática de dados
+* Interface web para visualização e consulta (http://localhost:8086)
+
+Dados armazenados:
+* Umidade do solo
+* Temperatura
+* Precipitação
+* Timestamp dos sensores
+
+---
+
 ### 🟧 Kafka
 
 Plataforma de mensageria utilizada como broker de eventos entre os sensores e a **Ingress API**.
