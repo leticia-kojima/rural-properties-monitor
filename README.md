@@ -200,84 +200,59 @@ Você também pode usar essas opções com arquivos de compose personalizados us
 
 ## Kubernetes & Minikube
 
-Esta seção orienta como executar e orquestrar todos os microsserviços do projeto em um cluster Kubernetes local utilizando o Minikube. O uso do Kubernetes permite simular um ambiente de produção real, facilitando testes de escalabilidade, resiliência, deploy contínuo e integração entre os serviços. Com Minikube, você pode experimentar práticas modernas de DevOps, validar a infraestrutura como código e garantir que sua aplicação está pronta para ambientes cloud-native.
+Esta seção mostra como rodar os microsserviços em um cluster Kubernetes local usando Minikube.
 
 ### O que é Minikube?
-Minikube é uma ferramenta que executa clusters Kubernetes localmente, ideal para desenvolvimento e testes.
-
-### Por que usar Kubernetes neste projeto?
-- Orquestração e automação de deploys, escalonamento e gerenciamento dos serviços.
-- Simulação de ambiente produtivo, com pods, serviços, volumes persistentes e variáveis de ambiente.
-- Facilidade para testar cenários de falha, escalabilidade e atualização contínua.
-- Separação clara dos recursos de infraestrutura (Kafka, InfluxDB, Zookeeper, etc) e dos microsserviços da aplicação.
+Minikube executa clusters Kubernetes localmente, ideal para desenvolvimento e testes.
 
 ### Organização dos Manifests
 
-Os manifests do Kubernetes estão organizados em subpastas dentro de `k8s/`:
+Os manifests estão em [`k8s/`](k8s/):
 
-- `k8s/influxdb/` - Deployment, Service, PVCs do InfluxDB
-- `k8s/kafka/` - Deployment & Service do Kafka
-- `k8s/zookeeper/` - Deployment & Service do Zookeeper
-- `k8s/ingress/` - Deployment & Service da API Ingress
-
-Cada subpasta contém arquivos YAML separados para Deployment, Service e, quando necessário, PersistentVolumeClaim.
+- [`k8s/influxdb/`](k8s/influxdb/) — InfluxDB (Deployment, Service, PVC)
+- [`k8s/kafka/`](k8s/kafka/) — Kafka (Deployment, Service)
+- [`k8s/zookeeper/`](k8s/zookeeper/) — Zookeeper (Deployment, Service)
+- [`k8s/ingress/`](k8s/ingress/) — Ingress API (Deployment, Service)
 
 ### Como rodar no Minikube
 
-1. **Inicie o Minikube:**
+1. Inicie o Minikube:
    ```sh
    minikube start
    ```
-2. **Construa as imagens Docker dentro do Minikube:**
-   - **Opção 1: Build de todas as imagens com Docker Compose:**
-     ```sh
-     eval $(minikube docker-env)
-     docker compose build
-     ```
-   - **Opção 2: Build manual de cada imagem:**
-     ```sh
-     eval $(minikube docker-env)
-     docker build -t ingress:latest ./src/Ingress
-     # Construa outras imagens conforme necessário
-     ```
-3. **Aplique os manifests do Kubernetes:**
-   - **Opção 1: Aplicar todos os manifests de uma vez:**
-     ```sh
-     kubectl apply -f k8s/
-     ```
-   - **Opção 2: Aplicar manualmente cada manifest:**
-     ```sh
-     kubectl apply -f k8s/zookeeper/zookeeper-deployment.yaml
-     kubectl apply -f k8s/zookeeper/zookeeper-service.yaml
-     kubectl apply -f k8s/kafka/kafka-deployment.yaml
-     kubectl apply -f k8s/kafka/kafka-service.yaml
-     kubectl apply -f k8s/influxdb/influxdb-pvc.yaml
-     kubectl apply -f k8s/influxdb/influxdb-deployment.yaml
-     kubectl apply -f k8s/influxdb/influxdb-service.yaml
-     kubectl apply -f k8s/ingress/ingress-api-deployment.yaml
-     kubectl apply -f k8s/ingress/ingress-api-service.yaml
-     ```
-4. **Verifique os pods e serviços:**
+2. Construa as imagens Docker dentro do Minikube:
+   ```sh
+   eval $(minikube docker-env)
+   docker compose build
+   ```
+   Ou manualmente:
+   ```sh
+   docker build -t ingress:latest ./src/Ingress
+   ```
+3. Aplique os manifests:
+   ```sh
+   kubectl apply -f k8s/
+   ```
+   Ou aplique arquivos individuais conforme necessário.
+4. Verifique pods e serviços:
    ```sh
    kubectl get pods
    kubectl get svc
    ```
-5. **Acesse a API ingress:**
+5. Acesse a Ingress API:
    ```sh
    minikube service ingress-api
    ```
+   ### Dicas rápidas para troubleshooting no Minikube/Kubernetes
 
-### Dicas e Boas Práticas
+   - Remover recursos: `kubectl delete -f <arquivo.yaml>`
+   - Ver logs de pods: `kubectl logs <nome-do-pod>`
+   - Verificar status dos pods: `kubectl get pods`
+   - Port-forward para acessar serviços localmente: `kubectl port-forward svc/<serviço> <porta-local>:<porta-serviço>`
+   - Escalar pods alterando `replicas` nos Deployments e aplicando novamente: `kubectl apply -f <deployment.yaml>`
+   - Verificar eventos e erros: `kubectl describe pod <nome-do-pod>`
+   - Verificar serviços expostos: `kubectl get svc`
 
-- Use `kubectl delete -f <arquivo.yaml>` para remover recursos.
-- Use `kubectl logs <nome-do-pod>` para debugar problemas em pods.
-- Para acessar o InfluxDB, crie um port-forward:
-  ```sh
-  kubectl port-forward svc/influxdb 8086:8086
-  ```
-- Para testar escalabilidade, altere o campo `replicas` nos arquivos de Deployment.
-- As variáveis de ambiente definidas nos Deployments sobrescrevem as configurações do `appsettings.json`.
-- Certifique-se de que o valor de `InfluxDbConfig__Url` seja `http://influxdb:8086` no ambiente Kubernetes.
 
 ## Autores
 
